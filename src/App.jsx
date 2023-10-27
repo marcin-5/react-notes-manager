@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Outlet } from "react-router-dom";
 import { setNoteList } from "store/notes/notes-slice";
+import s from "./style.module.css";
 
 export function App() {
   const dispatch = useDispatch();
@@ -20,7 +21,9 @@ export function App() {
   return (
     <div>
       <Header />
-      <Outlet />
+      <div className={s.workspace}>
+        <Outlet />
+      </div>
     </div>
   );
 }
