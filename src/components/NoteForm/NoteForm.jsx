@@ -14,12 +14,15 @@ export function NoteForm({ isEditable = true, note, title, onClickEdit, onClickD
       return ValidatorService.min(value, 3);
     },
   };
-  const [formErrors, setFormErrors] = useState({ title: true, content: true });
+  const [formErrors, setFormErrors] = useState({
+    title: note?.title ? undefined : true,
+    content: note?.content ? undefined : true,
+  });
   const validate = (fieldName, fieldValue) => {
     setFormErrors({ ...formErrors, [fieldName]: VALIDATOR[fieldName](fieldValue) });
   };
 
-  const [formValues, setFormValues] = useState({ title: "", content: "" });
+  const [formValues, setFormValues] = useState({ title: note?.title, content: note?.content });
   const updateFormValues = (e) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -44,7 +47,13 @@ export function NoteForm({ isEditable = true, note, title, onClickEdit, onClickD
   const titleInput = (
     <div className="mb-5">
       <label className="form-label">Title</label>
-      <input onChange={updateFormValues} type="text" name="title" className="form-control" />
+      <input
+        onChange={updateFormValues}
+        type="text"
+        name="title"
+        className="form-control"
+        value={formValues.title}
+      />
       <FieldError msg={formErrors.title} />
     </div>
   );
@@ -57,6 +66,7 @@ export function NoteForm({ isEditable = true, note, title, onClickEdit, onClickD
         name="content"
         className="form-control"
         row="5"
+        value={formValues.content}
       />
       <FieldError msg={formErrors.content} />
     </div>
