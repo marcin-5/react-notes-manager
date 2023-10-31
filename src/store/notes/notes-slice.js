@@ -1,5 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+function formatId(note) {
+  return {
+    ...note,
+    id: note.id.toString(),
+  };
+}
+
 export const noteSlice = createSlice({
   name: "noteSlice",
   initialState: {
@@ -7,10 +14,10 @@ export const noteSlice = createSlice({
   },
   reducers: {
     setNoteList: (currentSlice, action) => {
-      currentSlice.noteList = action.payload;
+      currentSlice.noteList = action.payload.map(formatId);
     },
     addNote: (currentSlice, action) => {
-      currentSlice.noteList.push(action.payload);
+      currentSlice.noteList.push(formatId(action.payload));
     },
   },
 });

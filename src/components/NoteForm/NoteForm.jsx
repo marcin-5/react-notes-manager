@@ -5,7 +5,7 @@ import { PencilFill, TrashFill } from "react-bootstrap-icons";
 import { ValidatorService } from "services/validator";
 import s from "./style.module.css";
 
-export function NoteForm({ title, onClickEdit, onClickDelete, onSubmit }) {
+export function NoteForm({ isEditable = true, note, title, onClickEdit, onClickDelete, onSubmit }) {
   const VALIDATOR = {
     title: (value) => {
       return ValidatorService.min(value, 3) || ValidatorService.max(value, 32);
@@ -33,8 +33,12 @@ export function NoteForm({ title, onClickEdit, onClickDelete, onSubmit }) {
 
   const actionIcons = (
     <>
-      <div className="col-1">{onClickEdit && <PencilFill className={s.icon} />}</div>
-      <div className="col-1">{onClickDelete && <TrashFill className={s.icon} />}</div>
+      <div className="col-1">
+        {onClickEdit && <PencilFill onClick={onClickEdit} className={s.icon} />}
+      </div>
+      <div className="col-1">
+        {onClickDelete && <TrashFill onClick={onClickDelete} className={s.icon} />}
+      </div>
     </>
   );
   const titleInput = (
@@ -73,8 +77,8 @@ export function NoteForm({ title, onClickEdit, onClickDelete, onSubmit }) {
         </div>
         {actionIcons}
       </div>
-      <div className={`mb-3 ${s.title_input_container}`}>{titleInput}</div>
-      <div className="mb-3">{contentInput}</div>
+      <div className={`mb-3 ${s.title_input_container}`}>{isEditable && titleInput}</div>
+      <div className="mb-3">{isEditable ? contentInput : <pre>{note.content}</pre>}</div>
       {onSubmit && submitBtn}
     </div>
   );
