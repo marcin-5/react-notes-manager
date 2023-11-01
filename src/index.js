@@ -3,6 +3,8 @@ import { Note } from "pages/Note/Note";
 import { NoteBrowse } from "pages/NoteBrowse/NoteBrowse";
 import { NoteCreate } from "pages/NoteCreate/NoteCreate";
 import { PageNotFound } from "pages/PageNotFound/PageNotFound";
+import { Signin } from "pages/Signin/Signin";
+import { Signup } from "pages/Signup/Signup";
 import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
@@ -17,6 +19,8 @@ root.render(
     <Provider store={store}>
       <BrowserRouter>
         <Routes>
+          <Route path="/signin" element={<Signin />} />
+          <Route path="/signup" element={<Signup />} />
           <Route path="/" element={<App />}>
             <Route path="/" element={<NoteBrowse />} />
             <Route path="/note/:noteId" element={<Note />} />
