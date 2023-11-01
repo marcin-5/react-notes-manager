@@ -22,7 +22,10 @@ export function NoteForm({ isEditable = true, note, title, onClickEdit, onClickD
     setFormErrors({ ...formErrors, [fieldName]: VALIDATOR[fieldName](fieldValue) });
   };
 
-  const [formValues, setFormValues] = useState({ title: note?.title, content: note?.content });
+  const [formValues, setFormValues] = useState({
+    title: note?.title || "",
+    content: note?.content || "",
+  });
   const updateFormValues = (e) => {
     const name = e.target.name;
     const value = e.target.value;
