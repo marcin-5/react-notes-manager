@@ -1,16 +1,26 @@
+import { AuthAPI } from "api/auth";
 import { ButtonPrimary } from "components/ButtonPrimary/ButtonPrimary";
 import { Input } from "components/Input/Input";
 import { AuthLayout } from "layouts/AuthLayout/AuthLayout";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { setUser } from "store/auth/auth-slice";
 import s from "./style.module.css";
 
 export function Signin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const submit = (e) => {
+  const dispatch = useDispatch();
+
+  const submit = async (e) => {
     e.preventDefault();
-    console.log(email, password);
+    try {
+      const user = await AuthAPI.signin(email, password);
+      dispatch(setUser(user));
+    } catch (err) {
+      console.log("Auth failed");
+    }
   };
   const form = (
     <div className={s.formContainer}>
