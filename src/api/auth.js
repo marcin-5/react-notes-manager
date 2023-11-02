@@ -6,8 +6,8 @@ export class AuthAPI {
     const response = await signInWithEmailAndPassword(FireBaseApp.auth, email, password);
     return response.user.toJSON();
   }
-  static async signup(emailo, password) {
-    const respone = await createUserWithEmailAndPassword(FireBaseApp.auth, email, password);
+  static async signup(email, password) {
+    const response = await createUserWithEmailAndPassword(FireBaseApp.auth, email, password);
     return response.user.toJSON();
   }
   static async signout() {
