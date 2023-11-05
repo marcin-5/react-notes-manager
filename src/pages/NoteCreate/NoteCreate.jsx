@@ -3,6 +3,7 @@ import { NoteForm } from "components/NoteForm/NoteForm";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addNote } from "store/notes/notes-slice";
+import { showAlert } from "utils/sweet-alert";
 
 export function NoteCreate(props) {
   const dispatch = useDispatch();
@@ -13,7 +14,7 @@ export function NoteCreate(props) {
       created_at: new Date().toLocaleDateString(),
     });
     dispatch(addNote(createdNote));
-    alert("The note has been created");
+    showAlert("success", "The note has been created");
     navigate("/");
   };
   return (
