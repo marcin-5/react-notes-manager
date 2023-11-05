@@ -1,4 +1,4 @@
-import { FireBaseApp } from "services/firebase";
+import { FireBaseApp } from "utils/firebase";
 import { signOut, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
 
 export class AuthAPI {

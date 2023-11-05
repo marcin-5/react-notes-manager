@@ -9,7 +9,7 @@ import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { FireBaseApp } from "services/firebase";
+import { FireBaseApp } from "utils/firebase";
 import "./index.css";
 import { store } from "./store";
 
