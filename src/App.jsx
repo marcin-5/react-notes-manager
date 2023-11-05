@@ -18,7 +18,10 @@ export function App() {
   }
 
   useEffect(() => {
-    fetchAllNotes();
+    const unsub = NoteAPI.onShouldSyncNotes(fetchAllNotes);
+    return () => {
+      unsub();
+    };
   }, []);
 
   return (

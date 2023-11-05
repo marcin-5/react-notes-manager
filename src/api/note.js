@@ -4,6 +4,7 @@ import {
   deleteDoc,
   doc,
   getDocs,
+  onSnapshot,
   orderBy,
   query,
   updateDoc,
@@ -41,5 +42,16 @@ export class NoteAPI {
         ...document.data(),
       };
     });
+  }
+
+  static onShouldSyncNotes(onChange) {
+    const q = query(collection(FireBaseApp.db, "notes"));
+    const unsub = onSnapshot(q, (querySnapshot) => {
+      if (!querySnapshot.metadata.hasPendingWrites) {
+        // console.log("you are not synced with the notes collection");
+        onChange();
+      }
+    });
+    return unsub;
   }
 }
