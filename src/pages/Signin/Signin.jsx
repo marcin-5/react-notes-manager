@@ -4,22 +4,26 @@ import { Input } from "components/Input/Input";
 import { AuthLayout } from "layouts/AuthLayout/AuthLayout";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { setUser } from "store/auth/auth-slice";
+import { showAlert } from "utils/sweet-alert";
 import s from "./style.module.css";
 
 export function Signin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const submit = async (e) => {
     e.preventDefault();
     try {
       const user = await AuthAPI.signin(email, password);
       dispatch(setUser(user));
+      await showAlert("success", "Auth succeed");
+      navigate("/-");
     } catch (err) {
-      console.log("Auth failed");
+      showAlert("error", err.message);
     }
   };
   const form = (
