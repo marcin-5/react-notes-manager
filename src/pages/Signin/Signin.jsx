@@ -21,7 +21,7 @@ export function Signin() {
       const user = await AuthAPI.signin(email, password);
       dispatch(setUser(user));
       await showAlert("success", "Auth succeed");
-      navigate("/-");
+      navigate("/");
     } catch (err) {
       showAlert("error", err.message);
     }

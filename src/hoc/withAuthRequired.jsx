@@ -8,7 +8,7 @@ export function withAuthRequired(Component) {
     const user = useSelector((store) => store.authSlice.auth.user);
     useEffect(() => {
       if (!user) navigate("/signin");
-    }, []);
+    }, [user]);
     return user && <Component />;
   };
 }
