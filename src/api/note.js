@@ -1,28 +1,21 @@
-import axios from "axios";
-
-const BASE_URL = "http://localhost:3200/notes";
+import { collection, getDocs, orderBy, query } from "firebase/firestore";
+import { FireBaseApp } from "utils/firebase";
 
 export class NoteAPI {
-  static async create(note) {
-    return this.formatId((await axios.post(`${BASE_URL}`, note)).data);
-  }
+  static async create(note) {}
 
-  static async deleteById(noteId) {
-    return (await axios.delete(`${BASE_URL}/${noteId}`)).data;
-  }
+  static async deleteById(noteId) {}
 
-  static async updateById(noteId, note) {
-    return this.formatId((await axios.patch(`${BASE_URL}/${noteId}`, note)).data);
-  }
+  static async updateById(noteId, note) {}
 
   static async fetchAll() {
-    return (await axios.get(`${BASE_URL}`)).data.map(this.formatId);
-  }
-
-  static formatId(note) {
-    return {
-      ...note,
-      id: note.id.toString(),
-    };
+    const q = query(collection(FireBaseApp.db, "notes"), orderBy("created_at", "asc"));
+    const response = await getDocs(q);
+    return response.docs.map((document) => {
+      return {
+        id: document.id,
+        ...document.data(),
+      };
+    });
   }
 }
