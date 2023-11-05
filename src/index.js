@@ -1,4 +1,4 @@
-import { App } from "App";
+import { ProtectedApp } from "App";
 import { Note } from "pages/Note/Note";
 import { NoteBrowse } from "pages/NoteBrowse/NoteBrowse";
 import { NoteCreate } from "pages/NoteCreate/NoteCreate";
@@ -24,7 +24,7 @@ root.render(
         <Routes>
           <Route path="/signin" element={<Signin />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/" element={<App />}>
+          <Route path="/" element={<ProtectedApp />}>
             <Route path="/" element={<NoteBrowse />} />
             <Route path="/note/:noteId" element={<Note />} />
             <Route path="/note/new" element={<NoteCreate />} />
